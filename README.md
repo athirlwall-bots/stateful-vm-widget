@@ -1,17 +1,21 @@
-# hooks
+# stateful-view-model-widget
 
-A new Flutter project.
+Attempt at a Stateful View Model Widget
 
-## Getting Started
+## Introduction
 
-This project is a starting point for a Flutter application.
+Widget is called MyStatefulViewModelWidget and is rendered as part of _MyHomePageState in main.dart
 
-A few resources to get you started if this is your first Flutter project:
+This version implements optional reactivity as a parameter to the main widget, but if it is known in advance that the widget will always be either reactive or non-reactive, the State constructor could be:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+_MyStatefulViewModelWidgetState() {
+    this.reactive = true; // or false
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# stateful-vm-widget
+
+The mixin allows the widget to resemble a "normal" stateful widget complete with lifecycle methods (initState, setState etc).
+
+The ViewModel is the same instance each time it is updated, In the test app, when the counter is increased, the ViewModel parameter is compared to the previous ViewModel parameter to see if it is the same ('identical') instance. It can be seen when debugging that it is.
+
+## Possible improvements
+
+Use an abstract class instead of a mixin. But this proved to be troublesome due to the dual nature of stateful widgets (a main widget plus a state widget). I ended up needed two abstract classes (one for each), and it got confusing quickly. I encourage the reader to have a go!
